@@ -60,7 +60,7 @@ Function Get_User_Name($ComputerName){
 $User_name = ([string]((Get-WmiObject win32_computersystem -comp $ComputerName).Username) -replace $Domain_name -replace "\\")
 If ($User_name -eq "") {$User_name = "No_Name"}
 return $User_name 
-}
+} #Getting User Name
 
 
 cls
@@ -69,6 +69,7 @@ $Now = get-date -Format "yyyy-MM-dd hh:mm:ss"
 Write-Host "Run computer scaning" -ForeGroundColor Green
 $Check_interval = [DateTime]::Today.AddDays(-60);
 $ListComputers = Get-ADComputer -Filter '(LastLogonDate -gt $Check_interval) -and ((OperatingSystem -eq "Windows 10 Pro") -or (OperatingSystem -eq "Windows 7 Professional") -or (OperatingSystem -like "*XP*"))'  -Properties OperatingSystem, LastLogonDate | select name, OperatingSystem, LastLogonDate
+#Getting List of last active copmuters from AD
 Write-Host "List of active computers... done" -ForeGroundColor Green 
 $numb= 1
 $data = @()
